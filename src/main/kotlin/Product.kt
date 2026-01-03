@@ -1,9 +1,9 @@
 package com.aassalax
 
 class Product(
-    name: String,
-    price: Double,
-    category: ProductCategory = ProductCategory.OTHER,
+    val name: String,
+    val price: Double,
+    val category: ProductCategory = ProductCategory.OTHER,
 ) {
 
 }
