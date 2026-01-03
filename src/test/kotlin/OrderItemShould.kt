@@ -62,4 +62,59 @@ class OrderItemShould {
 
         assertThat(item.ttc()).isEqualByComparingTo("32.98")
     }
+
+    @Test
+    fun `calculate tax for imported and vat exempted product`() {
+        val chocolate = Product(
+            name = "boîte de chocolats",
+            category = ProductCategory.FOOD,
+            price = BigDecimal("10.00"),
+            imported = true
+        )
+        val item = OrderItem(chocolate, 1)
+
+        val expectedTax = BigDecimal("0.50")
+        assertThat(item.tax()).isEqualTo(expectedTax)
+    }
+
+    @Test
+    fun `calculate tax for imported vat non-exempt product`() {
+        val perfume = Product(
+            name = "flacon de parfum",
+            category = ProductCategory.OTHER,
+            price = BigDecimal("47.50"),
+            imported = true
+        )
+        val item = OrderItem(perfume, 1)
+        val expectedTax = BigDecimal("7.15")
+        assertThat(item.tax()).isEqualTo(expectedTax)
+    }
+
+    @Test
+    fun `calculate ttc for imported and vat exempted product`() {
+        val chocolate = Product(
+            name = "boîte de chocolats",
+            category = ProductCategory.FOOD,
+            price = BigDecimal("10.00"),
+            imported = true
+        )
+        val item = OrderItem(chocolate, 1)
+
+        val expectedTtc = BigDecimal("10.50")
+        assertThat(item.ttc()).isEqualTo(expectedTtc)
+    }
+
+    @Test
+    fun `calculate ttc for imported vat non-exempt product`() {
+        val perfume = Product(
+            name = "imported bottle of perfume",
+            category = ProductCategory.OTHER,
+            price = BigDecimal("47.50"),
+            imported = true
+        )
+        val item = OrderItem(perfume, 1)
+
+        val expectedTtc = BigDecimal("54.65")
+        assertThat(item.ttc()).isEqualTo(expectedTtc)
+    }
 }
