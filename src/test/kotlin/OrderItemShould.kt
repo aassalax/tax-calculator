@@ -30,4 +30,36 @@ class OrderItemShould {
 
         assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(1.50))
     }
+
+    @Test
+    fun `calculate ttc for book`() {
+        val book = Product("livre", BigDecimal(12.49), ProductCategory.BOOK)
+        val item = OrderItem(book, 2)
+
+        assertThat(item.ttc()).isEqualByComparingTo("24.98")
+    }
+
+    @Test
+    fun `calculate ttc for other products`() {
+        val cd = Product("CD musical", BigDecimal(14.99))
+        val item = OrderItem(cd, 1)
+
+        assertThat(item.ttc()).isEqualByComparingTo("16.49")
+    }
+
+    @Test
+    fun `calculate tax for other products with quantity greater than one`() {
+        val cd = Product("CD musical", BigDecimal(14.99))
+        val item = OrderItem(cd, 2)
+
+        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(3.00))
+    }
+
+    @Test
+    fun `calculate ttc for other products with quantity greater than one`() {
+        val cd = Product("CD musical", BigDecimal(14.99))
+        val item = OrderItem(cd, 2)
+
+        assertThat(item.ttc()).isEqualByComparingTo("32.98")
+    }
 }

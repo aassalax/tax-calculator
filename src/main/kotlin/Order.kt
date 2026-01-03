@@ -1,6 +1,7 @@
 package com.aassalax
 
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 class Order(val items: List<OrderItem>) {
     fun totalTaxesAmount() : BigDecimal {
@@ -8,6 +9,8 @@ class Order(val items: List<OrderItem>) {
     }
 
     fun priceWithAllTaxesIncluded() : BigDecimal {
-        TODO("Not yet implemented")
+        return items
+            .sumOf { it.product.price.add(it.tax()) }
+            .setScale(2, RoundingMode.HALF_UP)
     }
 }
