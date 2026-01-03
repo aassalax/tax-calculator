@@ -4,6 +4,7 @@ import com.aassalax.Invoice
 import com.aassalax.Order
 import com.aassalax.OrderItem
 import com.aassalax.Product
+import com.aassalax.ProductCategory
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.ExpectedScenarioState
 import com.tngtech.jgiven.annotation.ProvidedScenarioState
@@ -20,9 +21,9 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
 
     @Test
     fun `applies vat on taxable products only`() {
-        val livre = Product("livre", 12.49)
+        val livre = Product("livre", 12.49, ProductCategory.BOOK)
         val cd = Product("CD musical", 14.99)
-        val chocolat = Product("barre de chocolat", 0.85)
+        val chocolat = Product("barre de chocolat", 0.85, ProductCategory.FOOD)
 
         GIVEN.`an order with items`(
             OrderItem(livre, 1),
