@@ -1,5 +1,6 @@
 import com.aassalax.model.Order
 import com.aassalax.model.OrderItem
+import com.aassalax.model.Price
 import com.aassalax.model.Product
 import com.aassalax.model.ProductCategory
 import org.assertj.core.api.Assertions.assertThat
@@ -11,7 +12,7 @@ class OrderShould {
 
     @Nested
     inner class ForSingleItem {
-        val book = Product("book", BigDecimal(12.49), ProductCategory.BOOK)
+        val book = Product("book", Price(BigDecimal(12.49)), ProductCategory.BOOK)
         val item = OrderItem(book, 1)
 
         @Test
@@ -31,9 +32,9 @@ class OrderShould {
 
     @Nested
     inner class ForMultipleItems {
-        val book = Product("book", BigDecimal("12.49"), ProductCategory.BOOK)
-        val cd = Product("music CD", BigDecimal("14.99"), ProductCategory.OTHER)
-        val chocolate = Product("chocolate bar", BigDecimal("0.85"),ProductCategory.FOOD)
+        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
+        val cd = Product("music CD", Price(BigDecimal("14.99")), ProductCategory.OTHER)
+        val chocolate = Product("chocolate bar", Price(BigDecimal("0.85")),ProductCategory.FOOD)
 
         @Test
         fun `calculate total taxes`() {

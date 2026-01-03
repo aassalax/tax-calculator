@@ -3,6 +3,7 @@ package acceptance
 import com.aassalax.model.Invoice
 import com.aassalax.model.Order
 import com.aassalax.model.OrderItem
+import com.aassalax.model.Price
 import com.aassalax.model.Product
 import com.aassalax.model.ProductCategory
 import com.tngtech.jgiven.Stage
@@ -22,9 +23,9 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
 
     @Test
     fun `applies vat on taxable products only`() {
-        val livre = Product("livre", BigDecimal(12.49), ProductCategory.BOOK)
-        val cd = Product("CD musical", BigDecimal(14.99))
-        val chocolat = Product("barre de chocolat", BigDecimal(0.85), ProductCategory.FOOD)
+        val livre = Product("livre", Price(BigDecimal(12.49)), ProductCategory.BOOK)
+        val cd = Product("CD musical", Price(BigDecimal(14.99)))
+        val chocolat = Product("barre de chocolat", Price(BigDecimal(0.85)), ProductCategory.FOOD)
 
         GIVEN.`an order with items`(
             OrderItem(livre, 1),
@@ -47,13 +48,13 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
         val importedChocolate = Product(
             name = "boîte de chocolats importée",
             category = ProductCategory.FOOD,
-            price = BigDecimal("10.00"),
+            price = Price(BigDecimal("10.00")),
             imported = true
         )
         val importedPerfume = Product(
             name = "flacon de parfum importé",
             category = ProductCategory.OTHER,
-            price = BigDecimal("47.50"),
+            price = Price( BigDecimal("47.50")),
             imported = true
         )
 
@@ -72,10 +73,10 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
 
     @Test
     fun `all kinds of products`() {
-        val importedPerfume = Product("flacon de parfum importé", price = BigDecimal("27.99"), imported = true)
-        val perfume = Product("flacon de parfum", price = BigDecimal("18.99"))
-        val migrainePills = Product("boîte de pilules contre la migraine", category = ProductCategory.MEDICAL, price = BigDecimal("9.75"))
-        val importedChocolates = Product("boîte de chocolats importés", category = ProductCategory.FOOD, price = BigDecimal("11.25"), imported = true)
+        val importedPerfume = Product("flacon de parfum importé", price = Price(BigDecimal("27.99")), imported = true)
+        val perfume = Product("flacon de parfum", price = Price(BigDecimal("18.99")))
+        val migrainePills = Product("boîte de pilules contre la migraine", category = ProductCategory.MEDICAL, price = Price(BigDecimal("9.75")))
+        val importedChocolates = Product("boîte de chocolats importés", category = ProductCategory.FOOD, price = Price(BigDecimal("11.25")), imported = true)
 
         GIVEN.`an order with items`(
             OrderItem(importedPerfume, 1),
