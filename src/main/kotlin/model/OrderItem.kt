@@ -1,4 +1,4 @@
-package com.aassalax
+package com.aassalax.model
 
 import com.aassalax.tax.TaxRounder
 import com.aassalax.tax.VAT_RATE

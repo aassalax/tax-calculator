@@ -1,4 +1,4 @@
-package com.aassalax
+package com.aassalax.model
 
 import java.math.BigDecimal
 

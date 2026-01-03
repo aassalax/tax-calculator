@@ -1,6 +1,6 @@
-import com.aassalax.OrderItem
-import com.aassalax.Product
-import com.aassalax.ProductCategory
+import com.aassalax.model.OrderItem
+import com.aassalax.model.Product
+import com.aassalax.model.ProductCategory
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

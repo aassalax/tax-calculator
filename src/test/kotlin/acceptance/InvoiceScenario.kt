@@ -1,10 +1,10 @@
 package acceptance
 
-import com.aassalax.Invoice
-import com.aassalax.Order
-import com.aassalax.OrderItem
-import com.aassalax.Product
-import com.aassalax.ProductCategory
+import com.aassalax.model.Invoice
+import com.aassalax.model.Order
+import com.aassalax.model.OrderItem
+import com.aassalax.model.Product
+import com.aassalax.model.ProductCategory
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.ExpectedScenarioState
 import com.tngtech.jgiven.annotation.ProvidedScenarioState

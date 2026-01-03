@@ -1,4 +1,4 @@
-package com.aassalax
+package com.aassalax.model
 
 class Invoice(val order: Order) {
     fun print() : String {
