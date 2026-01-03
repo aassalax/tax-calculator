@@ -6,7 +6,7 @@ import java.math.RoundingMode
 object TaxRounder {
     private val scale = BigDecimal("0.05")
 
-    fun round(amount: Double): BigDecimal = BigDecimal.valueOf(amount)
+    fun round(amount: BigDecimal): BigDecimal = amount
         .divide(scale, 0, RoundingMode.UP)
         .multiply(scale)
 }

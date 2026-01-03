@@ -14,8 +14,8 @@ class TaxRounderShould {
         "1.01, 1.05",
         "1.02, 1.05"
     )
-    fun `round tax correctly according to rules`(input: Double, expected: String) {
-        val rounded = TaxRounder.round(input)
+    fun `round tax correctly according to rules`(input: String, expected: String) {
+        val rounded = TaxRounder.round(BigDecimal(input))
         assertThat(rounded).isEqualByComparingTo(BigDecimal(expected))
     }
 }

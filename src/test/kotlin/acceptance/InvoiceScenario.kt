@@ -16,14 +16,15 @@ import io.toolisticon.testing.jgiven.WHEN
 import io.toolisticon.testing.jgiven.step
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 
 class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInvoiceIsPrinted>() {
 
     @Test
     fun `applies vat on taxable products only`() {
-        val livre = Product("livre", 12.49, ProductCategory.BOOK)
-        val cd = Product("CD musical", 14.99)
-        val chocolat = Product("barre de chocolat", 0.85, ProductCategory.FOOD)
+        val livre = Product("livre", BigDecimal(12.49), ProductCategory.BOOK)
+        val cd = Product("CD musical", BigDecimal(14.99))
+        val chocolat = Product("barre de chocolat", BigDecimal(0.85), ProductCategory.FOOD)
 
         GIVEN.`an order with items`(
             OrderItem(livre, 1),

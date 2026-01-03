@@ -1,8 +1,10 @@
 package com.aassalax
 
+import java.math.BigDecimal
+
 class Product(
     val name: String,
-    val price: Double,
+    val price: BigDecimal,
     val category: ProductCategory = ProductCategory.OTHER,
 ) {
     fun isVatExempted() : Boolean {
