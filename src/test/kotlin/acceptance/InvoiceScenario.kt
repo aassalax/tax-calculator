@@ -41,6 +41,34 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
         """.trimIndent()
         )
     }
+
+    @Test
+    fun `apply additional import tax`() {
+        val importedChocolate = Product(
+            name = "boîte de chocolats importée",
+            category = ProductCategory.FOOD,
+            price = BigDecimal("10.00"),
+            imported = true
+        )
+        val importedPerfume = Product(
+            name = "flacon de parfum importé",
+            category = ProductCategory.OTHER,
+            price = BigDecimal("47.50"),
+            imported = true
+        )
+
+        GIVEN.`an order with items`(
+            OrderItem(importedChocolate, 1),
+            OrderItem(importedPerfume, 1)
+        )
+        WHEN.`the invoice is generated`()
+        THEN.`the printed invoice is`("""
+            1 boîte de chocolats importée : 10.50
+            1 flacon de parfum importé : 54.65
+            Montant des taxes: 7.65
+            Total: 65.15
+        """.trimIndent())
+    }
 }
 
 @JGivenKotlinStage
