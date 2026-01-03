@@ -10,7 +10,7 @@ class Order(val items: List<OrderItem>) {
 
     fun priceWithAllTaxesIncluded() : BigDecimal {
         return items
-            .sumOf { it.product.price.add(it.tax()) }
+            .sumOf { it.ttc() }
             .setScale(2, RoundingMode.HALF_UP)
     }
 }
