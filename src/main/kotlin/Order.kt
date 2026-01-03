@@ -1,5 +1,9 @@
 package com.aassalax
 
-class Order(items: List<OrderItem>) {
+import java.math.BigDecimal
 
+class Order(items: List<OrderItem>) {
+    fun totalTaxesAmount() : BigDecimal {
+        TODO("Not yet implemented")
+    }
 }
