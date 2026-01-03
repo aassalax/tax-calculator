@@ -5,6 +5,9 @@ class Product(
     val price: Double,
     val category: ProductCategory = ProductCategory.OTHER,
 ) {
+    fun isVatExempted() : Boolean {
+        return category == ProductCategory.BOOK || category == ProductCategory.FOOD
+    }
 
 }
 

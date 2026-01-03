@@ -21,4 +21,12 @@ class OrderItemShould {
 
         assertThat(item.tax()).isEqualByComparingTo(0.0)
     }
+
+    @Test
+    fun `calculate 10 percent tax for other products`() {
+        val cd = Product("CD musical", 14.99)
+        val item = OrderItem(cd, 1)
+
+        assertThat(item.tax()).isEqualTo(1.50)
+    }
 }
