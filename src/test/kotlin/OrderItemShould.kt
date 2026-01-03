@@ -1,4 +1,5 @@
 import com.aassalax.model.OrderItem
+import com.aassalax.model.Price
 import com.aassalax.model.Product
 import com.aassalax.model.ProductCategory
 import org.assertj.core.api.Assertions.assertThat
@@ -9,7 +10,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate zero tax for book`() {
-        val book = Product("livre", BigDecimal(12.49), ProductCategory.BOOK)
+        val book = Product("livre", Price(BigDecimal(12.49)), ProductCategory.BOOK)
         val item = OrderItem(book, 1)
 
         assertThat(item.tax()).isEqualByComparingTo(BigDecimal.ZERO)
@@ -17,7 +18,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate zero tax for food`() {
-        val chocolat = Product("barre de chocolat", BigDecimal(0.85), ProductCategory.FOOD )
+        val chocolat = Product("barre de chocolat", Price(BigDecimal(0.85)), ProductCategory.FOOD )
         val item = OrderItem(chocolat, 1)
 
         assertThat(item.tax()).isEqualByComparingTo(BigDecimal.ZERO)
@@ -25,7 +26,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate 10 percent tax for other products`() {
-        val cd = Product("CD musical", BigDecimal(14.99))
+        val cd = Product("CD musical", Price(BigDecimal(14.99)))
         val item = OrderItem(cd, 1)
 
         assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(1.50))
@@ -33,7 +34,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate ttc for book`() {
-        val book = Product("livre", BigDecimal(12.49), ProductCategory.BOOK)
+        val book = Product("livre", Price(BigDecimal(12.49)), ProductCategory.BOOK)
         val item = OrderItem(book, 2)
 
         assertThat(item.ttc()).isEqualByComparingTo("24.98")
@@ -41,7 +42,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate ttc for other products`() {
-        val cd = Product("CD musical", BigDecimal(14.99))
+        val cd = Product("CD musical", Price(BigDecimal(14.99)))
         val item = OrderItem(cd, 1)
 
         assertThat(item.ttc()).isEqualByComparingTo("16.49")
@@ -49,7 +50,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate tax for other products with quantity greater than one`() {
-        val cd = Product("CD musical", BigDecimal(14.99))
+        val cd = Product("CD musical", Price(BigDecimal(14.99)))
         val item = OrderItem(cd, 2)
 
         assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(3.00))
@@ -57,7 +58,7 @@ class OrderItemShould {
 
     @Test
     fun `calculate ttc for other products with quantity greater than one`() {
-        val cd = Product("CD musical", BigDecimal(14.99))
+        val cd = Product("CD musical", Price(BigDecimal(14.99)))
         val item = OrderItem(cd, 2)
 
         assertThat(item.ttc()).isEqualByComparingTo("32.98")
@@ -68,7 +69,7 @@ class OrderItemShould {
         val chocolate = Product(
             name = "boîte de chocolats",
             category = ProductCategory.FOOD,
-            price = BigDecimal("10.00"),
+            price = Price(BigDecimal("10.00")),
             imported = true
         )
         val item = OrderItem(chocolate, 1)
@@ -82,7 +83,7 @@ class OrderItemShould {
         val perfume = Product(
             name = "flacon de parfum",
             category = ProductCategory.OTHER,
-            price = BigDecimal("47.50"),
+            price = Price(BigDecimal("47.50")),
             imported = true
         )
         val item = OrderItem(perfume, 1)
@@ -95,7 +96,7 @@ class OrderItemShould {
         val chocolate = Product(
             name = "boîte de chocolats",
             category = ProductCategory.FOOD,
-            price = BigDecimal("10.00"),
+            price = Price(BigDecimal("10.00")),
             imported = true
         )
         val item = OrderItem(chocolate, 1)
@@ -109,7 +110,7 @@ class OrderItemShould {
         val perfume = Product(
             name = "imported bottle of perfume",
             category = ProductCategory.OTHER,
-            price = BigDecimal("47.50"),
+            price = Price(BigDecimal("47.50")),
             imported = true
         )
         val item = OrderItem(perfume, 1)

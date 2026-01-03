@@ -11,7 +11,7 @@ class OrderItem(val product: Product, val quantity: Int) {
         }
 
     fun ttc() : BigDecimal {
-        return product.price
+        return product.price.amount
             .multiply(BigDecimal(quantity)).setScale(2, RoundingMode.HALF_UP)
             .add(tax())
     }

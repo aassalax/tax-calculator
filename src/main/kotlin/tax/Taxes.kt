@@ -9,7 +9,7 @@ enum class Taxes(val rate: BigDecimal, val isApplicableFor: (Product) -> Boolean
 
     fun computeTaxFor(product: Product): BigDecimal =
         if (isApplicableFor(product))
-            TaxRounder.round(product.price * rate)
+            TaxRounder.round(product.price.amount * rate)
         else
             BigDecimal.ZERO
 }

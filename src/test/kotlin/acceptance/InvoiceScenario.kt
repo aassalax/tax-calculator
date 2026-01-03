@@ -3,6 +3,7 @@ package acceptance
 import com.aassalax.model.Invoice
 import com.aassalax.model.Order
 import com.aassalax.model.OrderItem
+import com.aassalax.model.Price
 import com.aassalax.model.Product
 import com.aassalax.model.ProductCategory
 import com.tngtech.jgiven.Stage
@@ -22,9 +23,9 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
 
     @Test
     fun `applies vat on taxable products only`() {
-        val livre = Product("livre", BigDecimal(12.49), ProductCategory.BOOK)
-        val cd = Product("CD musical", BigDecimal(14.99))
-        val chocolat = Product("barre de chocolat", BigDecimal(0.85), ProductCategory.FOOD)
+        val livre = Product("livre", Price(BigDecimal(12.49)), ProductCategory.BOOK)
+        val cd = Product("CD musical", Price(BigDecimal(14.99)))
+        val chocolat = Product("barre de chocolat", Price(BigDecimal(0.85)), ProductCategory.FOOD)
 
         GIVEN.`an order with items`(
             OrderItem(livre, 1),
@@ -47,13 +48,13 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
         val importedChocolate = Product(
             name = "boîte de chocolats importée",
             category = ProductCategory.FOOD,
-            price = BigDecimal("10.00"),
+            price = Price(BigDecimal("10.00")),
             imported = true
         )
         val importedPerfume = Product(
             name = "flacon de parfum importé",
             category = ProductCategory.OTHER,
-            price = BigDecimal("47.50"),
+            price = Price( BigDecimal("47.50")),
             imported = true
         )
 
@@ -68,6 +69,32 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
             Montant des taxes: 7.65
             Total: 65.15
         """.trimIndent())
+    }
+
+    @Test
+    fun `all kinds of products`() {
+        val importedPerfume = Product("flacon de parfum importé", price = Price(BigDecimal("27.99")), imported = true)
+        val perfume = Product("flacon de parfum", price = Price(BigDecimal("18.99")))
+        val migrainePills = Product("boîte de pilules contre la migraine", category = ProductCategory.MEDICAL, price = Price(BigDecimal("9.75")))
+        val importedChocolates = Product("boîte de chocolats importés", category = ProductCategory.FOOD, price = Price(BigDecimal("11.25")), imported = true)
+
+        GIVEN.`an order with items`(
+            OrderItem(importedPerfume, 1),
+            OrderItem(perfume, 1),
+            OrderItem(migrainePills, 1),
+            OrderItem(importedChocolates, 1),
+        )
+
+        WHEN.`the invoice is generated`()
+
+        THEN.`the printed invoice is`("""
+        1 flacon de parfum importé : 32.19
+        1 flacon de parfum : 20.89
+        1 boîte de pilules contre la migraine : 9.75
+        1 boîte de chocolats importés : 11.85
+        Montant des taxes: 6.70
+        Total: 74.68
+    """.trimIndent())
     }
 }
 

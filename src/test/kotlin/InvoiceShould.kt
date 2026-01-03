@@ -1,6 +1,7 @@
 import com.aassalax.model.Invoice
 import com.aassalax.model.Order
 import com.aassalax.model.OrderItem
+import com.aassalax.model.Price
 import com.aassalax.model.Product
 import com.aassalax.model.ProductCategory
 import org.assertj.core.api.Assertions.assertThat
@@ -11,7 +12,7 @@ class InvoiceShould {
 
     @Test
     fun `print a single item`() {
-        val book = Product("book", BigDecimal("12.49"), ProductCategory.BOOK)
+        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
         val order = Order(listOf(OrderItem(book, 1)))
         val invoice = Invoice(order)
 
@@ -26,9 +27,9 @@ class InvoiceShould {
 
     @Test
     fun `print multiple items with correct taxes and totals`() {
-        val book = Product("book", BigDecimal("12.49"), ProductCategory.BOOK)
-        val cd = Product("music CD", BigDecimal("14.99"))
-        val chocolate = Product("chocolate bar", BigDecimal("0.85"),ProductCategory.FOOD)
+        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
+        val cd = Product("music CD", Price(BigDecimal("14.99")))
+        val chocolate = Product("chocolate bar", Price(BigDecimal("0.85")),ProductCategory.FOOD)
 
         val order = Order(
             listOf(
