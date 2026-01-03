@@ -26,4 +26,11 @@ class ProductShould {
 
         assertThat(product.isVatExempted()).isFalse
     }
+
+    @Test
+    fun `be vat exempted if category is mediacal`() {
+        val product = Product("boîte de pilules contre la migraine", BigDecimal(12.49), ProductCategory.MEDICAL)
+
+        assertThat(product.isVatExempted()).isTrue
+    }
 }

@@ -9,7 +9,9 @@ class Product(
     val imported: Boolean = false
 ) {
     fun isVatExempted() : Boolean {
-        return category == ProductCategory.BOOK || category == ProductCategory.FOOD
+        return category == ProductCategory.BOOK ||
+                category == ProductCategory.FOOD ||
+                category == ProductCategory.MEDICAL
     }
 
 }
