@@ -69,6 +69,32 @@ class InvoiceScenario : ScenarioTest<GivenOrder, WhenInvoiceIsGenerated, ThenInv
             Total: 65.15
         """.trimIndent())
     }
+
+    @Test
+    fun `all kinds of products`() {
+        val importedPerfume = Product("flacon de parfum importé", price = BigDecimal("27.99"), imported = true)
+        val perfume = Product("flacon de parfum", price = BigDecimal("18.99"))
+        val migrainePills = Product("boîte de pilules contre la migraine", category = ProductCategory.MEDICAL, price = BigDecimal("9.75"))
+        val importedChocolates = Product("boîte de chocolats importés", category = ProductCategory.FOOD, price = BigDecimal("11.25"), imported = true)
+
+        GIVEN.`an order with items`(
+            OrderItem(importedPerfume, 1),
+            OrderItem(perfume, 1),
+            OrderItem(migrainePills, 1),
+            OrderItem(importedChocolates, 1),
+        )
+
+        WHEN.`the invoice is generated`()
+
+        THEN.`the printed invoice is`("""
+        1 flacon de parfum importé : 32.19
+        1 flacon de parfum : 20.89
+        1 boîte de pilules contre la migraine : 9.75
+        1 boîte de chocolats importés : 11.85
+        Montant des taxes: 6.70
+        Total: 74.68
+    """.trimIndent())
+    }
 }
 
 @JGivenKotlinStage
