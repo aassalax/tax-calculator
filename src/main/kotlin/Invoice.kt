@@ -1,7 +1,19 @@
 package com.aassalax
 
-class Invoice(order: Order) {
+class Invoice(val order: Order) {
     fun print() : String {
-        TODO("Not yet implemented")
+        val lines = order.items.joinToString("\n") { it.asInvoiceLine() }
+        val totalTaxes = order.totalTaxesAmount()
+        val total = order.priceWithAllTaxesIncluded()
+
+        return buildString {
+            appendLine(lines)
+            appendLine("Montant des taxes: $totalTaxes")
+            append("Total: $total")
+        }
+    }
+
+    private fun OrderItem.asInvoiceLine() : String {
+        return "$quantity ${product.name} : ${ttc()}"
     }
 }
