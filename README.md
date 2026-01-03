@@ -75,3 +75,8 @@ Total : 65.15
 1 boîte de chocolats importés : 11.85  
 Montant des taxes : 6.70  
 Total : 74.68
+
+👉 Run tests locally:
+```bash
+./gradlew test
+```
