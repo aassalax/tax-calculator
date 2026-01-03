@@ -20,5 +20,12 @@ class OrderShould {
 
             assertThat(order.totalTaxesAmount()).isEqualByComparingTo(BigDecimal("0.00"))
         }
+
+        @Test
+        fun `calculate total amount`() {
+            val order = Order(listOf(item))
+
+            assertThat(order.priceWithAllTaxesIncluded()).isEqualByComparingTo(BigDecimal("12.49"))
+        }
     }
 }
