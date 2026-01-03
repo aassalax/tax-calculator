@@ -3,6 +3,7 @@ import com.aassalax.Product
 import com.aassalax.ProductCategory
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 
 class OrderItemShould {
 
@@ -11,7 +12,7 @@ class OrderItemShould {
         val book = Product("livre", 12.49, ProductCategory.BOOK)
         val item = OrderItem(book, 1)
 
-        assertThat(item.tax()).isEqualTo(0.0)
+        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.ZERO)
     }
 
     @Test
@@ -19,7 +20,7 @@ class OrderItemShould {
         val chocolat = Product("barre de chocolat", 0.85, ProductCategory.FOOD )
         val item = OrderItem(chocolat, 1)
 
-        assertThat(item.tax()).isEqualByComparingTo(0.0)
+        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.ZERO)
     }
 
     @Test
@@ -27,6 +28,6 @@ class OrderItemShould {
         val cd = Product("CD musical", 14.99)
         val item = OrderItem(cd, 1)
 
-        assertThat(item.tax()).isEqualTo(1.50)
+        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(1.50))
     }
 }
