@@ -32,5 +32,6 @@ value class Price private constructor(val amount: BigDecimal){
         fun from(value: Double): Price =
             Price(BigDecimal.valueOf(value))
 
+        fun from(value: Price): Price = Price(value.asMoney())
     }
 }

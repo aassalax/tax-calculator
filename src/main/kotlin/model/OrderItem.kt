@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 data class OrderItem(val product: Product, val quantity: Int) {
     private val totalPrice: Price
-        get() = Price.of((product.price * quantity).asMoney())
+        get() = Price.from(product.price * quantity)
 
     val totalTax: Price
         get() = Price.of(Taxes.entries
