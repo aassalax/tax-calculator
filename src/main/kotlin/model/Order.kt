@@ -11,4 +11,6 @@ data class Order(val items: List<OrderItem>) {
     fun priceWithAllTaxesIncluded() : BigDecimal = items
         .sumOf { it.ttc() }
         .setScale(2, RoundingMode.HALF_UP)
+
+    override fun toString(): String = items.joinToString("\n")
 }

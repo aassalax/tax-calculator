@@ -76,6 +76,12 @@ Total : 65.15
 Montant des taxes : 6.70  
 Total : 74.68
 
+
+👉 Run app locally:
+```bash
+./gradlew run
+```
+
 👉 Run tests locally:
 ```bash
 ./gradlew test

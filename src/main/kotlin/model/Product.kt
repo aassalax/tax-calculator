@@ -15,6 +15,10 @@ class Product(
                 category == ProductCategory.MEDICAL
     }
 
+    override fun toString(): String {
+        return "$name $price"
+    }
+
 }
 
 enum class ProductCategory {
@@ -29,4 +33,10 @@ value class Price(val amount: BigDecimal){
     init {
         require(amount >= BigDecimal.ZERO) { "Price must be positive" }
     }
+
+    override fun toString(): String {
+        return "$amount"
+    }
+
+
 }
