@@ -4,7 +4,7 @@ import com.aassalax.tax.Taxes
 import java.math.BigDecimal
 
 data class OrderItem(val product: Product, val quantity: Int) {
-    fun tax() : Price = Price(Taxes.entries
+    fun tax() : Price = Price.of(Taxes.entries
         .fold(BigDecimal.ZERO) {
             acc, tax -> acc + tax.computeTaxFor(product)
                 .asMoney()
@@ -12,7 +12,7 @@ data class OrderItem(val product: Product, val quantity: Int) {
         }
     )
 
-    fun ttc() : Price = Price(product.price.asMoney()
+    fun ttc() : Price = Price.of(product.price.asMoney()
         .multiply(BigDecimal(quantity))
         .add(tax().asMoney())
     )

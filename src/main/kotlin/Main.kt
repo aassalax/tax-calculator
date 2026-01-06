@@ -17,7 +17,7 @@ fun main() {
                 Product(
                     name = "livre",
                     category = ProductCategory.BOOK,
-                    price = Price(BigDecimal("12.49"))
+                    price = Price.of(BigDecimal("12.49"))
                 ),
                 quantity = 1
             ),
@@ -25,7 +25,7 @@ fun main() {
                 Product(
                     name = "CD musical",
                     category = ProductCategory.OTHER,
-                    price = Price(BigDecimal("14.99"))
+                    price = Price.of(BigDecimal("14.99"))
                 ),
                 quantity = 1
             ),
@@ -33,7 +33,7 @@ fun main() {
                 Product(
                     name = "barre de chocolat",
                     category = ProductCategory.FOOD,
-                    price = Price(BigDecimal("0.85"))
+                    price = Price.of(BigDecimal("0.85"))
                 ),
                 quantity = 1
             )
@@ -46,7 +46,7 @@ fun main() {
                 Product(
                     name = "boîte de chocolats importée",
                     category = ProductCategory.FOOD,
-                    price = Price(BigDecimal("10.00")),
+                    price = Price.of(BigDecimal("10.00")),
                     imported = true
                 ),
                 quantity = 1
@@ -55,7 +55,7 @@ fun main() {
                 Product(
                     name = "flacon de parfum importé",
                     category = ProductCategory.OTHER,
-                    price = Price(BigDecimal("47.50")),
+                    price = Price.of(BigDecimal("47.50")),
                     imported = true
                 ),
                 quantity = 1
@@ -69,7 +69,7 @@ fun main() {
                 Product(
                     name = "flacon de parfum importé",
                     category = ProductCategory.OTHER,
-                    price = Price(BigDecimal("27.99")),
+                    price = Price.of(BigDecimal("27.99")),
                     imported = true
                 ),
                 quantity = 1
@@ -78,7 +78,7 @@ fun main() {
                 Product(
                     name = "flacon de parfum",
                     category = ProductCategory.OTHER,
-                    price = Price(BigDecimal("18.99"))
+                    price = Price.of(BigDecimal("18.99"))
                 ),
                 quantity = 1
             ),
@@ -86,7 +86,7 @@ fun main() {
                 Product(
                     name = "boîte de pilules contre la migraine",
                     category = ProductCategory.MEDICAL,
-                    price = Price(BigDecimal("9.75"))
+                    price = Price.of(BigDecimal("9.75"))
                 ),
                 quantity = 1
             ),
@@ -94,7 +94,7 @@ fun main() {
                 Product(
                     name = "boîte de chocolats importés",
                     category = ProductCategory.FOOD,
-                    price = Price(BigDecimal("11.25")),
+                    price = Price.of(BigDecimal("11.25")),
                     imported = true
                 ),
                 quantity = 1

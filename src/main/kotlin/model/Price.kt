@@ -4,7 +4,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @JvmInline
-value class Price(val amount: BigDecimal){
+value class Price private constructor(val amount: BigDecimal){
     init {
         require(amount >= BigDecimal.ZERO) { "Price must be positive" }
     }
@@ -14,5 +14,16 @@ value class Price(val amount: BigDecimal){
 
     override fun toString(): String {
         return "$amount"
+    }
+
+    companion object {
+        fun of(amount: BigDecimal): Price =
+            Price(amount)
+
+        fun from(value: String): Price =
+            Price(BigDecimal(value))
+
+        fun from(value: Double): Price =
+            Price(BigDecimal.valueOf(value))
     }
 }

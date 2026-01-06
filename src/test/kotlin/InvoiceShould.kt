@@ -12,7 +12,7 @@ class InvoiceShould {
 
     @Test
     fun `print a single item`() {
-        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
+        val book = Product("book", Price.from(12.49), ProductCategory.BOOK)
         val order = Order(listOf(OrderItem(book, 1)))
         val invoice = Invoice(order)
 
@@ -27,9 +27,9 @@ class InvoiceShould {
 
     @Test
     fun `print multiple items with correct taxes and totals`() {
-        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
-        val cd = Product("music CD", Price(BigDecimal("14.99")))
-        val chocolate = Product("chocolate bar", Price(BigDecimal("0.85")),ProductCategory.FOOD)
+        val book = Product("book", Price.from(12.49), ProductCategory.BOOK)
+        val cd = Product("music CD", Price.from(14.99))
+        val chocolate = Product("chocolate bar", Price.from(.85),ProductCategory.FOOD)
 
         val order = Order(
             listOf(

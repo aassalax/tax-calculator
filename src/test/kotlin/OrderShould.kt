@@ -12,7 +12,7 @@ class OrderShould {
 
     @Nested
     inner class ForSingleItem {
-        val book = Product("book", Price(BigDecimal(12.49)), ProductCategory.BOOK)
+        val book = Product("book", Price.from(12.49), ProductCategory.BOOK)
         val item = OrderItem(book, 1)
 
         @Test
@@ -32,9 +32,9 @@ class OrderShould {
 
     @Nested
     inner class ForMultipleItems {
-        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
-        val cd = Product("music CD", Price(BigDecimal("14.99")), ProductCategory.OTHER)
-        val chocolate = Product("chocolate bar", Price(BigDecimal("0.85")),ProductCategory.FOOD)
+        val book = Product("book", Price.from("12.49"), ProductCategory.BOOK)
+        val cd = Product("music CD", Price.from("14.99"), ProductCategory.OTHER)
+        val chocolate = Product("chocolate bar", Price.from("0.85"),ProductCategory.FOOD)
 
         @Test
         fun `calculate total taxes`() {
