@@ -9,11 +9,7 @@ class Product(
     val category: ProductCategory = ProductCategory.OTHER,
     val imported: Boolean = false
 ) {
-    fun isVatExempted() : Boolean {
-        return category == ProductCategory.BOOK ||
-                category == ProductCategory.FOOD ||
-                category == ProductCategory.MEDICAL
-    }
+    fun isVatExempted() : Boolean = category.vatExempted
 
     override fun toString(): String {
         return "$name $price"
@@ -21,11 +17,11 @@ class Product(
 
 }
 
-enum class ProductCategory {
-    BOOK,
-    FOOD,
-    MEDICAL,
-    OTHER
+enum class ProductCategory(val vatExempted: Boolean) {
+    BOOK(true),
+    FOOD(true),
+    MEDICAL(true),
+    OTHER(false)
 }
 
 @JvmInline
@@ -37,6 +33,4 @@ value class Price(val amount: BigDecimal){
     override fun toString(): String {
         return "$amount"
     }
-
-
 }
