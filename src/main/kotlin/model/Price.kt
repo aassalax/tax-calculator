@@ -12,6 +12,12 @@ value class Price private constructor(val amount: BigDecimal){
     fun asMoney(): BigDecimal =
         amount.setScale(2, RoundingMode.HALF_UP)
 
+    operator fun plus(other: Price): Price =
+        Price(this.amount.add(other.amount))
+
+    operator fun times(times: Int): Price =
+        Price(this.amount.multiply(times.toBigDecimal()))
+
     override fun toString(): String {
         return "$amount"
     }
@@ -25,5 +31,6 @@ value class Price private constructor(val amount: BigDecimal){
 
         fun from(value: Double): Price =
             Price(BigDecimal.valueOf(value))
+
     }
 }
