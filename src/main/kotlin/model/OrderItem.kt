@@ -6,7 +6,9 @@ import java.math.BigDecimal
 data class OrderItem(val product: Product, val quantity: Int) {
     fun tax() : Price = Price(Taxes.entries
         .fold(BigDecimal.ZERO) {
-            acc, tax -> acc + tax.computeTaxFor(product).multiply(BigDecimal(quantity))
+            acc, tax -> acc + tax.computeTaxFor(product)
+                .asMoney()
+                .multiply(BigDecimal(quantity))
         }
     )
 
