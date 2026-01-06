@@ -19,14 +19,14 @@ class OrderShould {
         fun `calculate total taxes`() {
             val order = Order(listOf(item))
 
-            assertThat(order.totalTaxesAmount()).isEqualByComparingTo(BigDecimal("0.00"))
+            assertThat(order.totalTaxesAmount().asMoney()).isEqualByComparingTo(BigDecimal("0.00"))
         }
 
         @Test
         fun `calculate total amount`() {
             val order = Order(listOf(item))
 
-            assertThat(order.priceWithAllTaxesIncluded()).isEqualByComparingTo(BigDecimal("12.49"))
+            assertThat(order.priceWithAllTaxesIncluded().asMoney()).isEqualByComparingTo(BigDecimal("12.49"))
         }
     }
 
@@ -46,7 +46,7 @@ class OrderShould {
                 )
             )
 
-            assertThat(order.totalTaxesAmount()).isEqualByComparingTo(BigDecimal("1.50"))
+            assertThat(order.totalTaxesAmount().asMoney()).isEqualByComparingTo(BigDecimal("1.50"))
         }
 
         @Test
@@ -59,7 +59,7 @@ class OrderShould {
                 )
             )
 
-            assertThat(order.priceWithAllTaxesIncluded()).isEqualByComparingTo(BigDecimal("29.83"))
+            assertThat(order.priceWithAllTaxesIncluded().asMoney()).isEqualByComparingTo(BigDecimal("29.83"))
         }
     }
 }

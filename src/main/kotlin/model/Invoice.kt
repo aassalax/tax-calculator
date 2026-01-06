@@ -3,7 +3,7 @@ package com.aassalax.model
 class Invoice(val order: Order) {
     fun print() : String {
         val lines = order.items.joinToString("\n") { it.asInvoiceLine() }
-        val totalTaxes = order.totalTaxesAmount()
+        val totalTaxes = order.totalTaxesAmount().asMoney()
         val total = order.priceWithAllTaxesIncluded()
 
         return buildString {
