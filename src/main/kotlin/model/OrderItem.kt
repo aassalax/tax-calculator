@@ -4,18 +4,18 @@ import com.aassalax.tax.Taxes
 import java.math.BigDecimal
 
 data class OrderItem(val product: Product, val quantity: Int) {
-    fun tax() : Price = Price.of(Taxes.entries
-        .fold(BigDecimal.ZERO) {
-            acc, tax -> acc + tax.computeTaxFor(product)
-                .asMoney()
-                .multiply(BigDecimal(quantity))
-        }
-    )
+    private val totalPrice: Price
+        get() = Price.of(product.price.asMoney().multiply(quantity.toBigDecimal()))
 
-    fun ttc() : Price = Price.of(product.price.asMoney()
-        .multiply(BigDecimal(quantity))
-        .add(tax().asMoney())
-    )
+    val totalTax: Price
+        get() = Price.of(Taxes.entries
+            .fold(BigDecimal.ZERO) { acc, tax ->
+                acc + tax.computeTaxFor(product).asMoney().multiply(quantity.toBigDecimal())
+            }
+        )
+
+    val totalTtc: Price
+        get() = Price.of(totalPrice.asMoney().add(totalTax.asMoney()))
 
     override fun toString(): String {
         return "$quantity $product"

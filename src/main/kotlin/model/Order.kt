@@ -1,11 +1,11 @@
 package com.aassalax.model
 
 data class Order(val items: List<OrderItem>) {
-    fun totalTaxesAmount() : Price = Price.of(items
-        .sumOf { it.tax().asMoney() })
+    val totalTaxes: Price
+        get() = Price.of(items.sumOf { it.totalTax.asMoney() })
 
-    fun priceWithAllTaxesIncluded() : Price = Price.of(items
-        .sumOf { it.ttc().asMoney() })
+    val totalPriceIncludingTaxes: Price
+        get() = Price.of(items.sumOf { it.totalTtc.asMoney() })
 
     override fun toString(): String = items.joinToString("\n")
 }
