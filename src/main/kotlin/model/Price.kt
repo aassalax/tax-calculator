@@ -13,13 +13,13 @@ value class Price private constructor(val amount: BigDecimal){
         amount.setScale(2, RoundingMode.HALF_UP)
 
     operator fun plus(other: Price): Price =
-        Price(this.amount.add(other.amount))
+        Price(amount.add(other.amount))
 
     operator fun times(times: Int): Price =
-        Price(this.amount.multiply(times.toBigDecimal()))
+        Price(amount.multiply(times.toBigDecimal()))
 
     override fun toString(): String {
-        return "$amount"
+        return asMoney().toString()
     }
 
     companion object {
