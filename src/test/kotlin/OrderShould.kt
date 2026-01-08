@@ -12,29 +12,29 @@ class OrderShould {
 
     @Nested
     inner class ForSingleItem {
-        val book = Product("book", Price(BigDecimal(12.49)), ProductCategory.BOOK)
+        val book = Product("book", Price.from(12.49), ProductCategory.BOOK)
         val item = OrderItem(book, 1)
 
         @Test
         fun `calculate total taxes`() {
             val order = Order(listOf(item))
 
-            assertThat(order.totalTaxesAmount()).isEqualByComparingTo(BigDecimal("0.00"))
+            assertThat(order.totalTaxes.asMoney()).isEqualByComparingTo(BigDecimal("0.00"))
         }
 
         @Test
         fun `calculate total amount`() {
             val order = Order(listOf(item))
 
-            assertThat(order.priceWithAllTaxesIncluded()).isEqualByComparingTo(BigDecimal("12.49"))
+            assertThat(order.totalPriceIncludingTaxes.asMoney()).isEqualByComparingTo(BigDecimal("12.49"))
         }
     }
 
     @Nested
     inner class ForMultipleItems {
-        val book = Product("book", Price(BigDecimal("12.49")), ProductCategory.BOOK)
-        val cd = Product("music CD", Price(BigDecimal("14.99")), ProductCategory.OTHER)
-        val chocolate = Product("chocolate bar", Price(BigDecimal("0.85")),ProductCategory.FOOD)
+        val book = Product("book", Price.from("12.49"), ProductCategory.BOOK)
+        val cd = Product("music CD", Price.from("14.99"), ProductCategory.OTHER)
+        val chocolate = Product("chocolate bar", Price.from("0.85"),ProductCategory.FOOD)
 
         @Test
         fun `calculate total taxes`() {
@@ -46,7 +46,7 @@ class OrderShould {
                 )
             )
 
-            assertThat(order.totalTaxesAmount()).isEqualByComparingTo(BigDecimal("1.50"))
+            assertThat(order.totalTaxes.asMoney()).isEqualByComparingTo(BigDecimal("1.50"))
         }
 
         @Test
@@ -59,7 +59,7 @@ class OrderShould {
                 )
             )
 
-            assertThat(order.priceWithAllTaxesIncluded()).isEqualByComparingTo(BigDecimal("29.83"))
+            assertThat(order.totalPriceIncludingTaxes.asMoney()).isEqualByComparingTo(BigDecimal("29.83"))
         }
     }
 }

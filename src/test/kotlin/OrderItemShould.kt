@@ -10,58 +10,58 @@ class OrderItemShould {
 
     @Test
     fun `calculate zero tax for book`() {
-        val book = Product("livre", Price(BigDecimal(12.49)), ProductCategory.BOOK)
+        val book = Product("livre", Price.from(12.49), ProductCategory.BOOK)
         val item = OrderItem(book, 1)
 
-        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.ZERO)
+        assertThat(item.totalTax.asMoney()).isEqualByComparingTo(BigDecimal.ZERO)
     }
 
     @Test
     fun `calculate zero tax for food`() {
-        val chocolat = Product("barre de chocolat", Price(BigDecimal(0.85)), ProductCategory.FOOD )
+        val chocolat = Product("barre de chocolat", Price.from(.85), ProductCategory.FOOD )
         val item = OrderItem(chocolat, 1)
 
-        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.ZERO)
+        assertThat(item.totalTax.asMoney()).isEqualByComparingTo(BigDecimal.ZERO)
     }
 
     @Test
     fun `calculate 10 percent tax for other products`() {
-        val cd = Product("CD musical", Price(BigDecimal(14.99)))
+        val cd = Product("CD musical", Price.from(14.99))
         val item = OrderItem(cd, 1)
 
-        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(1.50))
+        assertThat(item.totalTax.asMoney()).isEqualByComparingTo(BigDecimal.valueOf(1.50))
     }
 
     @Test
     fun `calculate ttc for book`() {
-        val book = Product("livre", Price(BigDecimal(12.49)), ProductCategory.BOOK)
+        val book = Product("livre", Price.from(12.49), ProductCategory.BOOK)
         val item = OrderItem(book, 2)
 
-        assertThat(item.ttc()).isEqualByComparingTo("24.98")
+        assertThat(item.totalTtc.asMoney()).isEqualByComparingTo("24.98")
     }
 
     @Test
     fun `calculate ttc for other products`() {
-        val cd = Product("CD musical", Price(BigDecimal(14.99)))
+        val cd = Product("CD musical", Price.from(14.99))
         val item = OrderItem(cd, 1)
 
-        assertThat(item.ttc()).isEqualByComparingTo("16.49")
+        assertThat(item.totalTtc.asMoney()).isEqualByComparingTo("16.49")
     }
 
     @Test
     fun `calculate tax for other products with quantity greater than one`() {
-        val cd = Product("CD musical", Price(BigDecimal(14.99)))
+        val cd = Product("CD musical", Price.from(14.99))
         val item = OrderItem(cd, 2)
 
-        assertThat(item.tax()).isEqualByComparingTo(BigDecimal.valueOf(3.00))
+        assertThat(item.totalTax.asMoney()).isEqualByComparingTo(BigDecimal.valueOf(3.00))
     }
 
     @Test
     fun `calculate ttc for other products with quantity greater than one`() {
-        val cd = Product("CD musical", Price(BigDecimal(14.99)))
+        val cd = Product("CD musical", Price.from(14.99))
         val item = OrderItem(cd, 2)
 
-        assertThat(item.ttc()).isEqualByComparingTo("32.98")
+        assertThat(item.totalTtc.asMoney()).isEqualByComparingTo("32.98")
     }
 
     @Test
@@ -69,13 +69,13 @@ class OrderItemShould {
         val chocolate = Product(
             name = "boîte de chocolats",
             category = ProductCategory.FOOD,
-            price = Price(BigDecimal("10.00")),
+            price = Price.from("10.00"),
             imported = true
         )
         val item = OrderItem(chocolate, 1)
 
-        val expectedTax = BigDecimal("0.50")
-        assertThat(item.tax()).isEqualTo(expectedTax)
+        val expectedTax = Price.from("0.50")
+        assertThat(item.totalTax).isEqualTo(expectedTax)
     }
 
     @Test
@@ -83,12 +83,12 @@ class OrderItemShould {
         val perfume = Product(
             name = "flacon de parfum",
             category = ProductCategory.OTHER,
-            price = Price(BigDecimal("47.50")),
+            price = Price.from("47.50"),
             imported = true
         )
         val item = OrderItem(perfume, 1)
-        val expectedTax = BigDecimal("7.15")
-        assertThat(item.tax()).isEqualTo(expectedTax)
+        val expectedTax = Price.from("7.15")
+        assertThat(item.totalTax).isEqualTo(expectedTax)
     }
 
     @Test
@@ -96,13 +96,13 @@ class OrderItemShould {
         val chocolate = Product(
             name = "boîte de chocolats",
             category = ProductCategory.FOOD,
-            price = Price(BigDecimal("10.00")),
+            price = Price.from("10.00"),
             imported = true
         )
         val item = OrderItem(chocolate, 1)
 
-        val expectedTtc = BigDecimal("10.50")
-        assertThat(item.ttc()).isEqualTo(expectedTtc)
+        val expectedTtc = Price.from("10.50")
+        assertThat(item.totalTtc).isEqualTo(expectedTtc)
     }
 
     @Test
@@ -110,12 +110,12 @@ class OrderItemShould {
         val perfume = Product(
             name = "imported bottle of perfume",
             category = ProductCategory.OTHER,
-            price = Price(BigDecimal("47.50")),
+            price = Price.from("47.50"),
             imported = true
         )
         val item = OrderItem(perfume, 1)
 
-        val expectedTtc = BigDecimal("54.65")
-        assertThat(item.ttc()).isEqualTo(expectedTtc)
+        val expectedTtc = Price.from("54.65")
+        assertThat(item.totalTtc).isEqualTo(expectedTtc)
     }
 }

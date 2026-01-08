@@ -3,8 +3,8 @@ package com.aassalax.model
 class Invoice(val order: Order) {
     fun print() : String {
         val lines = order.items.joinToString("\n") { it.asInvoiceLine() }
-        val totalTaxes = order.totalTaxesAmount()
-        val total = order.priceWithAllTaxesIncluded()
+        val totalTaxes = order.totalTaxes
+        val total = order.totalPriceIncludingTaxes
 
         return buildString {
             appendLine(lines)
@@ -14,6 +14,6 @@ class Invoice(val order: Order) {
     }
 
     private fun OrderItem.asInvoiceLine() : String {
-        return "$quantity ${product.name} : ${ttc()}"
+        return "$quantity ${product.name} : $totalTtc"
     }
 }

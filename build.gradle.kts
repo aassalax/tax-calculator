@@ -27,5 +27,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.aassalax.MainKt")
 }
